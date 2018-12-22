@@ -6,11 +6,9 @@
     
 ## 使用
 
-在Net_blob_verify.py文件中compare_PNet_blob_with_numpy、compare_QNet_blob_with_numpy、compare_ONet_blob_with_numpy函数分别实现了
+在Net_blob_verify.py文件中compare_PNet_blob_with_numpy、compare_QNet_blob_with_numpy、compare_ONet_blob_with_numpy函数分别实现了PNet、RNet、ONet三个网络的各层。运行时需要先去掉对应函数的注释，再运行该文件即可。
 
-PNet、RNet、ONet三个网络的各层。运行时需要先去掉对应函数的注释，再运行该文件即可。
-
-** 注：compare_PNet_blob_with_numpy、compare_QNet_blob_with_numpy、compare_ONet_blob_with_numpy函数运行时间较长 **
+**注：compare_PNet_blob_with_numpy、compare_QNet_blob_with_numpy、compare_ONet_blob_with_numpy函数运行时间较长**
 
 ## 鸣谢
 
