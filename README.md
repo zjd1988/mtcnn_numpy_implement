@@ -12,6 +12,7 @@
 
 ## 鸣谢
 
+* https://github.com/pierluigiferrari/caffe_weight_converter 使用这个工具将Caffemodel文件的权重，保存为pkl格式文件，方便numpy导入和读取
 * https://github.com/ahmedfgad/NumPyCNN 主要依赖这个链接来实现卷积、池化等函数（一些函数的运行结果跟Caffe有出入，因此本地跟repo不同）
 * https://github.com/DuinoDu/mtcnn 代码的主体框架，基本按这个来的。
 
