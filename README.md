@@ -24,9 +24,8 @@ Elapsed time: 1133.5085640069228 seconds
 
 ## 补充
 
-1. 后续会增加演示采用了compare_PNet_blob_with_numpy、compare_QNet_blob_with_numpy、compare_ONet_blob_with_numpy三个函数的检测效果图
-2. 分析下这个https://github.com/espressif/esp-who 链接的在esp-32芯片的MTCNN实现。
-3. https://github.com/zjd1988/mtcnn_vs2017_based_on_ncnn 这是我在windows端编译通过的vs版本，可以单步调试，后续会学习下在ARM上的实现。
+1. 分析下这个https://github.com/espressif/esp-who 链接的在esp-32芯片的MTCNN实现。
+2. https://github.com/zjd1988/mtcnn_vs2017_based_on_ncnn 这是我在windows端编译通过的vs版本，可以单步调试，后续会学习下在ARM上的实现。
 
 
 
