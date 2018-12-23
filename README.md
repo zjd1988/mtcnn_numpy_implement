@@ -14,7 +14,7 @@
 
 Elapsed time: 1133.5085640069228 seconds
 
-![result](http://ww4.sinaimg.cn/bmiddle/aa397b7fjw1dzplsgpdw5j.jpg)
+![result](https://github.com/zjd1988/mtcnn_numpy_implement/blob/master/result.jpg)
 
 ## 鸣谢
 
