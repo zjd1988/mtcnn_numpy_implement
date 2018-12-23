@@ -4,6 +4,7 @@ import caffe
 import cv2
 import pickle
 import NumPyCNN as numpycnn
+import time
 
 
 def check_data(ref_data, com_data):
@@ -167,8 +168,11 @@ def custom_softmax_bak(bottom_data, axis = 1):
     return softmax_result                        
 
 def compare_PNet_blob_with_numpy(net):
+    net_name = "PNet"
+    print("{} is run....".format(net_name))
     f = open("PNet_weights.pkl", "rb")
     PNet_para = pickle.load(f)
+    f.close()
     bottom = "data"
     relu = "PReLU1"
 
@@ -263,11 +267,17 @@ def compare_PNet_blob_with_numpy(net):
     check_result = check_data(top_data, prob1)
     print("check layer {}, and result is {}".format(layer_name, check_result))
 
-    pass
+    out = {}
+    out["prob1"] = prob1
+    out["conv4-2"] = conv4_2
+    return out
 
 def compare_RNet_blob_with_numpy(net):
+    net_name = "RNet"
+    print("{} is run....".format(net_name))    
     f = open("RNet_weights.pkl", "rb")
     RNet_para = pickle.load(f)
+    f.close()
     bottom = "data"
     prelu1 = "prelu1"
     layer_name = "conv1"
@@ -284,7 +294,7 @@ def compare_RNet_blob_with_numpy(net):
         temp_conv1 = custom_prelu(temp_conv1, prelu_weights)
         temp_conv1 = temp_conv1.reshape((1, temp_conv1.shape[0], temp_conv1.shape[1], temp_conv1.shape[2]))
         conv1[index] = temp_conv1
-        print("layer name {} index {}".format(layer_name, index))
+        #print("layer name {} index {}".format(layer_name, index))
     check_result = check_data(top_data, conv1)
     print("check layer {}, and result is {}".format(layer_name, check_result))
 
@@ -299,7 +309,7 @@ def compare_RNet_blob_with_numpy(net):
         temp_pool1 = temp_pool1.transpose(2, 0, 1)
         temp_pool1 = temp_pool1.reshape((1, temp_pool1.shape[0], temp_pool1.shape[1], temp_pool1.shape[2]))
         pool1[index] = temp_pool1
-        print("layer name {} index {}".format(layer_name, index))
+        #print("layer name {} index {}".format(layer_name, index))
     check_result = check_data(top_data, pool1)
     print("check layer {}, and result is {}".format(layer_name, check_result))   
 
@@ -316,7 +326,7 @@ def compare_RNet_blob_with_numpy(net):
         temp_conv2 = custom_prelu(temp_conv2, prelu_weights)
         temp_conv2 = temp_conv2.reshape((1, temp_conv2.shape[0], temp_conv2.shape[1], temp_conv2.shape[2]))
         conv2[index] = temp_conv2
-        print("layer name {} index {}".format(layer_name, index))
+        #print("layer name {} index {}".format(layer_name, index))
     check_result = check_data(top_data, conv2)
     print("check layer {}, and result is {}".format(layer_name, check_result))   
 
@@ -331,7 +341,7 @@ def compare_RNet_blob_with_numpy(net):
         temp_pool2 = temp_pool2.transpose(2, 0, 1)
         temp_pool2 = temp_pool2.reshape((1, temp_pool2.shape[0], temp_pool2.shape[1], temp_pool2.shape[2]))
         pool2[index] = temp_pool2
-        print("layer name {} index {}".format(layer_name, index))
+        #print("layer name {} index {}".format(layer_name, index))
     check_result = check_data(top_data, pool2)
     print("check layer {}, and result is {}".format(layer_name, check_result))  
 
@@ -348,7 +358,7 @@ def compare_RNet_blob_with_numpy(net):
         temp_conv3 = custom_prelu(temp_conv3, prelu_weights)
         temp_conv3 = temp_conv3.reshape((1, temp_conv3.shape[0], temp_conv3.shape[1], temp_conv3.shape[2]))
         conv3[index] = temp_conv3
-        print("layer name {} index {}".format(layer_name, index))
+        #print("layer name {} index {}".format(layer_name, index))
     check_result = check_data(top_data, conv3)
     print("check layer {}, and result is {}".format(layer_name, check_result))
 
@@ -368,7 +378,7 @@ def compare_RNet_blob_with_numpy(net):
         temp_conv4 = temp_conv4.reshape(1, 128)
 
         conv4[index] = temp_conv4
-        print("layer name {} index {}".format(layer_name, index))
+        #print("layer name {} index {}".format(layer_name, index))
     check_result = check_data(top_data, conv4)
     print("check layer {}, and result is {}".format(layer_name, check_result)) 
 
@@ -384,7 +394,7 @@ def compare_RNet_blob_with_numpy(net):
         temp_conv5_1 = np.matmul(temp_conv5_1, weights.T)
         temp_conv5_1 = temp_conv5_1 + bias.reshape(-1, 2)
         conv5_1[index] = temp_conv5_1
-        print("layer name {} index {}".format(layer_name, index))
+        #print("layer name {} index {}".format(layer_name, index))
     check_result = check_data(top_data, conv5_1)
     print("check layer {}, and result is {}".format(layer_name, check_result)) 
 
@@ -399,7 +409,7 @@ def compare_RNet_blob_with_numpy(net):
         temp_conv5_2 = np.matmul(temp_conv5_2, weights.T)
         temp_conv5_2 = temp_conv5_2 + bias.reshape(-1, 4)
         conv5_2[index] = temp_conv5_2
-        print("layer name {} index {}".format(layer_name, index))
+        #print("layer name {} index {}".format(layer_name, index))
     check_result = check_data(top_data, conv5_2)
     print("check layer {}, and result is {}".format(layer_name, check_result))
 
@@ -412,11 +422,17 @@ def compare_RNet_blob_with_numpy(net):
     check_result = check_data(top_data, prob1)
     print("check layer {}, and result is {}".format(layer_name, check_result))
 
-    pass
+    out= {}
+    out["prob1"] = prob1
+    out["conv5-2"] = conv5_2
+    return out
 
 def compare_ONet_blob_with_numpy(net):
+    net_name = "ONet"
+    print("{} is run....".format(net_name))    
     f = open("ONet_weights.pkl", "rb")
     ONet_para = pickle.load(f)
+    f.close()
     bottom = "data"
     layer_name = "conv1"
 
@@ -432,7 +448,7 @@ def compare_ONet_blob_with_numpy(net):
         temp_conv1 = custom_prelu(temp_conv1, prelu_weights)
         temp_conv1 = temp_conv1.reshape((1, temp_conv1.shape[0], temp_conv1.shape[1], temp_conv1.shape[2]))
         conv1[index] = temp_conv1
-        print("layer name {} index {}".format(layer_name, index))
+        #print("layer name {} index {}".format(layer_name, index))
     check_result = check_data(top_data, conv1)
     print("check layer {}, and result is {}".format(layer_name, check_result))
 
@@ -447,7 +463,7 @@ def compare_ONet_blob_with_numpy(net):
         temp_pool1 = temp_pool1.transpose(2, 0, 1)
         temp_pool1 = temp_pool1.reshape((1, temp_pool1.shape[0], temp_pool1.shape[1], temp_pool1.shape[2]))
         pool1[index] = temp_pool1
-        print("layer name {} index {}".format(layer_name, index))
+        #print("layer name {} index {}".format(layer_name, index))
     check_result = check_data(top_data, pool1)
     print("check layer {}, and result is {}".format(layer_name, check_result))   
 
@@ -465,7 +481,7 @@ def compare_ONet_blob_with_numpy(net):
         temp_conv2 = custom_prelu(temp_conv2, prelu_weights)
         temp_conv2 = temp_conv2.reshape((1, temp_conv2.shape[0], temp_conv2.shape[1], temp_conv2.shape[2]))
         conv2[index] = temp_conv2
-        print("layer name {} index {}".format(layer_name, index))
+        #print("layer name {} index {}".format(layer_name, index))
     check_result = check_data(top_data, conv2)
     print("check layer {}, and result is {}".format(layer_name, check_result))   
 
@@ -480,7 +496,7 @@ def compare_ONet_blob_with_numpy(net):
         temp_pool2 = temp_pool2.transpose(2, 0, 1)
         temp_pool2 = temp_pool2.reshape((1, temp_pool2.shape[0], temp_pool2.shape[1], temp_pool2.shape[2]))
         pool2[index] = temp_pool2
-        print("layer name {} index {}".format(layer_name, index))
+        #print("layer name {} index {}".format(layer_name, index))
     check_result = check_data(top_data, pool2)
     print("check layer {}, and result is {}".format(layer_name, check_result))  
 
@@ -498,7 +514,7 @@ def compare_ONet_blob_with_numpy(net):
         temp_conv3 = custom_prelu(temp_conv3, prelu_weights)
         temp_conv3 = temp_conv3.reshape((1, temp_conv3.shape[0], temp_conv3.shape[1], temp_conv3.shape[2]))
         conv3[index] = temp_conv3
-        print("layer name {} index {}".format(layer_name, index))
+        #print("layer name {} index {}".format(layer_name, index))
     check_result = check_data(top_data, conv3)
     print("check layer {}, and result is {}".format(layer_name, check_result))
 
@@ -514,7 +530,7 @@ def compare_ONet_blob_with_numpy(net):
         temp_pool3 = temp_pool3.transpose(2, 0, 1)
         temp_pool3 = temp_pool3.reshape((1, temp_pool3.shape[0], temp_pool3.shape[1], temp_pool3.shape[2]))
         pool3[index] = temp_pool3
-        print("layer name {} index {}".format(layer_name, index))
+        #print("layer name {} index {}".format(layer_name, index))
     check_result = check_data(top_data, pool3)
     print("check layer {}, and result is {}".format(layer_name, check_result))  
 
@@ -531,7 +547,7 @@ def compare_ONet_blob_with_numpy(net):
         temp_conv4 = custom_prelu(temp_conv4, prelu_weights)
         temp_conv4 = temp_conv4.reshape((1, temp_conv4.shape[0], temp_conv4.shape[1], temp_conv4.shape[2]))
         conv4[index] = temp_conv4
-        print("layer name {} index {}".format(layer_name, index))
+        #print("layer name {} index {}".format(layer_name, index))
     check_result = check_data(top_data, conv4)
     print("check layer {}, and result is {}".format(layer_name, check_result)) 
 
@@ -552,7 +568,7 @@ def compare_ONet_blob_with_numpy(net):
         temp_conv5 = custom_prelu(temp_conv5, prelu_weights.reshape(256, 1))
         temp_conv5 = temp_conv5.reshape(1, -1)
         conv5[index] = temp_conv5
-        print("layer name {} index {}".format(layer_name, index))
+        #print("layer name {} index {}".format(layer_name, index))
     check_result = check_data(top_data, conv5)
     print("check layer {}, and result is {}".format(layer_name, check_result)) 
 
@@ -568,7 +584,7 @@ def compare_ONet_blob_with_numpy(net):
         temp_conv6_1 = np.matmul(temp_conv6_1, weights.T)
         temp_conv6_1 = temp_conv6_1 + bias.reshape(-1, 2)
         conv6_1[index] = temp_conv6_1
-        print("layer name {} index {}".format(layer_name, index))
+        #print("layer name {} index {}".format(layer_name, index))
     check_result = check_data(top_data, conv6_1)
     print("check layer {}, and result is {}".format(layer_name, check_result)) 
 
@@ -583,7 +599,7 @@ def compare_ONet_blob_with_numpy(net):
         temp_conv6_2 = np.matmul(temp_conv6_2, weights.T)
         temp_conv6_2 = temp_conv6_2 + bias.reshape(-1, 4)
         conv6_2[index] = temp_conv6_2
-        print("layer name {} index {}".format(layer_name, index))
+        #print("layer name {} index {}".format(layer_name, index))
     check_result = check_data(top_data, conv6_2)
     print("check layer {}, and result is {}".format(layer_name, check_result))
 
@@ -598,7 +614,7 @@ def compare_ONet_blob_with_numpy(net):
         temp_conv6_3 = np.matmul(temp_conv6_3, weights.T)
         temp_conv6_3 = temp_conv6_3 + bias.reshape(-1, 10)
         conv6_3[index] = temp_conv6_3
-        print("layer name {} index {}".format(layer_name, index))
+        #print("layer name {} index {}".format(layer_name, index))
     check_result = check_data(top_data, conv6_3)
     print("check layer {}, and result is {}".format(layer_name, check_result))
 
@@ -612,7 +628,11 @@ def compare_ONet_blob_with_numpy(net):
     check_result = check_data(top_data, prob1)
     print("check layer {}, and result is {}".format(layer_name, check_result))
 
-    pass
+    out= {}
+    out["prob1"] = prob1
+    out["conv6-2"] = conv6_2
+    out["conv6-3"] = conv6_3
+    return out
 
 def bbreg(boundingbox, reg):
     reg = reg.T 
@@ -855,7 +875,7 @@ def detect_face(img, minsize, PNet, RNet, ONet, threshold, fastresize, factor):
         ########################################
         ########################################
         ########################################
-        #compare_PNet_blob_with_numpy(PNet)
+        out = compare_PNet_blob_with_numpy(PNet)
         ########################################
         ########################################
         ########################################
@@ -970,7 +990,7 @@ def detect_face(img, minsize, PNet, RNet, ONet, threshold, fastresize, factor):
         ############################
         ############################
         #############################
-        #compare_RNet_blob_with_numpy(RNet)
+        out = compare_RNet_blob_with_numpy(RNet)
         ############################
         ############################
         #############################        
@@ -1040,7 +1060,7 @@ def detect_face(img, minsize, PNet, RNet, ONet, threshold, fastresize, factor):
             ############################
             ############################
             #############################
-            #compare_ONet_blob_with_numpy(ONet)
+            out = compare_ONet_blob_with_numpy(ONet)
             ############################
             ############################
             #############################                  
@@ -1078,7 +1098,23 @@ def detect_face(img, minsize, PNet, RNet, ONet, threshold, fastresize, factor):
 
     return total_boxes, points
 
+def drawBoxes(im, boxes):
+    x1 = boxes[:,0]
+    y1 = boxes[:,1]
+    x2 = boxes[:,2]
+    y2 = boxes[:,3]
+    for i in range(x1.shape[0]):
+        cv2.rectangle(im, (int(x1[i]), int(y1[i])), (int(x2[i]), int(y2[i])), (0,255,0), 1)
+    return im
 
+  
+
+
+def tic():
+    globals()['tt'] = time.clock()
+
+def toc():
+    print('\nElapsed time: {} seconds\n'.format(time.clock()-globals()['tt']))
 
 def main():
 
@@ -1100,8 +1136,15 @@ def main():
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     img_bak = img.copy()
 
+    tic()
     boundingboxes, points = detect_face(img, minsize, PNet, RNet, ONet, threshold, False, factor)
+    toc()
 
+    img_bak = drawBoxes(img_bak, boundingboxes)
+    cv2.imshow('img', img_bak)
+    ch = cv2.waitKey(0) & 0xFF
+    if ch == 27:
+        pass
 
 if __name__ == "__main__":
     main()

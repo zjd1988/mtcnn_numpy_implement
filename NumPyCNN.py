@@ -162,12 +162,12 @@ def pooling_new(feature_map, size=2, stride=2):
     dim0 = feature_map.shape[0]
     dim1 = feature_map.shape[1]
     if dim0 % stride != 0 and dim0 % stride >= size / 2:
-        dim0 = numpy.floor(dim0 / stride) + 1
+        dim0 = int(numpy.floor(dim0 / stride) + 1)
     else:
         dim0 = int(dim0 / stride)
 
     if dim1 % stride != 0 and dim1 % stride >= size / 2:
-        dim1 = numpy.floor(dim1 / stride) + 1
+        dim1 = int(numpy.floor(dim1 / stride) + 1)
     else:
         dim1 = int(dim1 / stride)
 
