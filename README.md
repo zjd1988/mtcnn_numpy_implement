@@ -10,6 +10,12 @@
 
 **注：compare_PNet_blob_with_numpy、compare_QNet_blob_with_numpy、compare_ONet_blob_with_numpy函数运行时间较长**
 
+## 运行结果
+
+Elapsed time: 1133.5085640069228 seconds
+
+![result](http://ww4.sinaimg.cn/bmiddle/aa397b7fjw1dzplsgpdw5j.jpg)
+
 ## 鸣谢
 
 * https://github.com/pierluigiferrari/caffe_weight_converter 使用这个工具将Caffemodel文件的权重，保存为pkl格式文件，方便numpy导入和读取
